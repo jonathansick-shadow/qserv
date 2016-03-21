@@ -10,10 +10,16 @@
 # don't start cmsd
 ###################################################################################
 
+if defined ?~XROOTD_MANAGER_HOSTNAME
+    set master = $XROOTD_MANAGER_HOSTNAME
+else
+    set master = {{XROOTD_MANAGER_HOST}}
+fi
+
 ############
 # if manager
 ############
-{{COMMENT_MONO_NODE}}if {{XROOTD_MANAGER_HOST}}*
+{{COMMENT_MONO_NODE}}if $master
 # Use manager mode
 {{COMMENT_MONO_NODE}}all.role manager
 
