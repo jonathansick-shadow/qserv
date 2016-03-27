@@ -61,7 +61,6 @@ class TestChunkMapping(unittest.TestCase):
             expect = workers[i % len(workers)]
             self.assertEqual(worker, expect)
 
-
     def testRepeat(self):
         """ Testing repeatability without CSS backend """
 
@@ -74,7 +73,6 @@ class TestChunkMapping(unittest.TestCase):
         wmap1 = [mapper.worker(w) for w in range(10)]
         wmap2 = [mapper.worker(w) for w in range(10)]
         self.assertEqual(wmap1, wmap2)
-
 
     def testCss1(self):
         """ Test for reading data from CSS """

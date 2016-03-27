@@ -163,7 +163,7 @@ html_static_path = ['_static']
 # This is the file name suffix for HTML files (e.g. ".xhtml").
 #html_file_suffix = None
 
-#Add sponsorship and project information to the template context.
+# Add sponsorship and project information to the template context.
 html_context = {
     'organization': "LSST Data Management System",
 }
@@ -175,21 +175,21 @@ htmlhelp_basename = 'Qservdoc'
 # -- Options for LaTeX output --------------------------------------------------
 
 latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+    # The paper size ('letterpaper' or 'a4paper').
+    #'papersize': 'letterpaper',
 
-# The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+    # The font size ('10pt', '11pt' or '12pt').
+    #'pointsize': '10pt',
 
-# Additional stuff for the LaTeX preamble.
-#'preamble': '',
+    # Additional stuff for the LaTeX preamble.
+    #'preamble': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Qserv.tex', u'Qserv Documentation',
-   u'Fabrice Jammes, Daniel Wang', 'manual'),
+    ('index', 'Qserv.tex', u'Qserv Documentation',
+     u'Fabrice Jammes, Daniel Wang', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -232,9 +232,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Qserv', u'Qserv Documentation',
-   u'Fabrice Jammes, Daniel Wang', 'Qserv', 'One line description of project.',
-   'Miscellaneous'),
+    ('index', 'Qserv', u'Qserv Documentation',
+     u'Fabrice Jammes, Daniel Wang', 'Qserv', 'One line description of project.',
+     'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

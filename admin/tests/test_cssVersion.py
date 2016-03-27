@@ -45,8 +45,10 @@ def _makeCss(data=None):
 
 
 class TestCssVersion(unittest.TestCase):
+
     def setUp(self):
         self.dbStriping = css.StripingParams(10, 10, 0, 0.0)
+
     def test1(self):
         """
         Check that if version is missing then it is created on

@@ -64,6 +64,8 @@ _LOG = logging.getLogger()
 # -----------------------
 # Exported definitions --
 # -----------------------
+
+
 class Configurator(object):
     """
     Application class for configuration application
@@ -178,7 +180,6 @@ class Configurator(object):
         elif self.args.step_list is None:
             self.args.step_list = configure.CONFIGURATION_STEPS
 
-
         qserv_dir = os.path.abspath(
             os.path.join(
                 os.path.dirname(os.path.realpath(__file__)),
@@ -286,7 +287,8 @@ class Configurator(object):
             if os.path.exists(self.args.qserv_run_dir):
 
                 if self.args.force or configure.user_yes_no_query(
-                                "WARNING : Do you want to erase all configuration data in {0} ?".format(self.args.qserv_run_dir)
+                    "WARNING : Do you want to erase all configuration data in {0} ?".format(
+                        self.args.qserv_run_dir)
                 ):
                     shutil.rmtree(self.args.qserv_run_dir)
                 else:
@@ -351,7 +353,7 @@ class Configurator(object):
                 # shutil.copytree(in_template_config_dir, out_template_config_dir)
 
                 dest_root = os.path.join(qserv_run_dir)
-                configure.apply_tpl_all( self._template_root, dest_root)
+                configure.apply_tpl_all(self._template_root, dest_root)
 
             component_cfg_steps = configure.intersect(
                 self.args.step_list, configure.COMPONENTS)

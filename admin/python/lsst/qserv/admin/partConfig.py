@@ -47,6 +47,7 @@ from lsst.qserv.admin.configParser import ConfigParser
 # Exported definitions --
 #------------------------
 
+
 class PartConfig(UserDict.UserDict):
     """
     Class which holds all table partition options.

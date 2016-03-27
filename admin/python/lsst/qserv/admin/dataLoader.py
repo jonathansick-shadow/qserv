@@ -48,6 +48,8 @@ from lsst.qserv.admin.chunkMapping import ChunkMapping
 #----------------------------------
 # Local non-exported definitions --
 #----------------------------------
+
+
 def _mysql_identifier_validator(db_or_table_name):
     """
     Check database and table name to prevent SQL-injection
@@ -66,6 +68,7 @@ def _mysql_identifier_validator(db_or_table_name):
 #------------------------
 # Exported definitions --
 #------------------------
+
 
 class DataLoader(object):
     """
@@ -149,7 +152,6 @@ class DataLoader(object):
         # do we need to run partitioner?
         self.callPartitioner = self.partitioned and not self.skipPart
 
-
     def load(self, database, table, schema, data):
         """
         Do actual loading based on parameters defined in constructor.
@@ -171,7 +173,6 @@ class DataLoader(object):
             return self._run(database, table, schema, data)
         finally:
             self._cleanup()
-
 
     def _run(self, database, table, schema, data):
         """
@@ -242,7 +243,6 @@ class DataLoader(object):
             except Exception as exc:
                 self._log.error('Failed to remove directory: %r', exc)
 
-
     def _checkCss(self, database, table):
         """
         Check CSS for existing configuration and see if it matches ours.
@@ -282,7 +282,7 @@ class DataLoader(object):
         """
         optValue = optType(partOptions[partKey])
         if optValue != cssValue:
-            raise ValueError('Option %r does not match CSS: %r != %r' % \
+            raise ValueError('Option %r does not match CSS: %r != %r' %
                              (partKey, optValue, cssValue))
 
     def _makeOrCheckChunksDir(self, data):
@@ -333,7 +333,6 @@ class DataLoader(object):
                     self._log.error('Failed to create chunks directory: %r', exc)
                     raise
 
-
     def _runPartitioner(self, files):
         '''Run partitioner to fill chunks directory with data, returns 0 on success.'''
 
@@ -364,7 +363,6 @@ class DataLoader(object):
             # some chunk files may have been created, add them to cleanup list
             if not self.keepChunks:
                 self.cleanupFiles += list(fileList(self.chunksDir))
-
 
     def _gunzip(self, data):
         """
@@ -446,7 +444,6 @@ class DataLoader(object):
 
         return result
 
-
     def _connections(self, useCzar, useWorkers):
         """
         Returns a list of wmgr "connections", for each conection there is a
@@ -465,7 +462,6 @@ class DataLoader(object):
                 res += [('worker ' + worker, wmgr)]
         return res
 
-
     def _deleteTable(self, database, table):
         """
         Drop existing table and all chunks.
@@ -476,7 +472,6 @@ class DataLoader(object):
         for name, wmgr in self._connections(useCzar=True, useWorkers=True):
             self._log.info('Deleting table from %r', name)
             wmgr.dropTable(database, table, dropChunks=True, mustExist=False)
-
 
     def _createTable(self, database, table, schema):
         """
@@ -497,7 +492,6 @@ class DataLoader(object):
             chunkColumns = bool(self.partitioned)
             wmgr.createTable(database, table, schema=self.schema, chunkColumns=chunkColumns)
 
-
     def _loadData(self, database, table, files):
         """
         Load data into existing table.
@@ -508,7 +502,6 @@ class DataLoader(object):
         else:
             # load data from chunk directory
             self._loadChunkedData(database, table)
-
 
     def _chunkFiles(self):
         """
@@ -523,7 +516,6 @@ class DataLoader(object):
                     chunkId = int(match.group('id'))
                     overlap = match.group('ov') is not None
                     yield (path, chunkId, overlap)
-
 
     def _loadChunkedData(self, database, table):
         """
@@ -582,7 +574,6 @@ class DataLoader(object):
                 # load data into chunk table
                 self._loadOneFile(wmgr, database, table, path, csvPrefix, chunkId=chunkId, overlap=overlap)
 
-
     @staticmethod
     def _chunkTableName(table, chunkId, overlap):
         """
@@ -594,7 +585,6 @@ class DataLoader(object):
         ctable += '_'
         ctable += str(chunkId)
         return ctable
-
 
     def _createDummyChunk(self, database, table):
         """
@@ -617,7 +607,6 @@ class DataLoader(object):
             # just make regular chunk with special ID, do not load any data
             wmgr.createChunk(database, table, 1234567890, overlap=self.partOptions.isSubChunked)
 
-
     def _loadNonChunkedData(self, database, table, files):
         """
         Load non-chunked data into mysql table. We use (unzipped) files that
@@ -638,7 +627,6 @@ class DataLoader(object):
             for file in files:
                 self._loadOneFile(wmgr, database, table, file, csvPrefix)
 
-
     def _loadOneFile(self, wmgr, database, table, path, csvPrefix, chunkId=None, overlap=None):
         """Load data from a single file into existing table"""
 
@@ -647,7 +635,7 @@ class DataLoader(object):
         # need to know special characters used in csv
         # default delimiter is the same as in partitioner
         special_chars = {'delimiter': '\t',
-                         'enclose':  '',
+                         'enclose': '',
                          'escape': '\\',
                          'newline': '\n'}
 
@@ -664,7 +652,6 @@ class DataLoader(object):
         wmgr.loadData(database, table, file, fileName=path, chunkId=chunkId, overlap=overlap,
                       delimiter=data['delimiter'], enclose=data['enclose'],
                       escape=data['escape'], terminate=data['newline'])
-
 
     def _updateCss(self, database, table):
         """
@@ -716,7 +703,6 @@ class DataLoader(object):
         i = schema.find('(')
         return schema[i:].encode('utf_8')
 
-
     def _makeEmptyChunks(self):
         """
         Generate empty chunks file, should be called after loading is complete.
@@ -748,7 +734,6 @@ class DataLoader(object):
         for chunk in range(maxChunks):
             if chunk not in self.chunks:
                 print(chunk, file=out)
-
 
     def _makeIndex(self, database, table):
         """
@@ -789,7 +774,6 @@ class DataLoader(object):
         else:
             self._makeIndexSingleNode(database, table, metaTable, idxCol)
 
-
     def _makeIndexMultiNode(self, database, table, metaTable, idxCol):
         """
         Generate object index in czar meta database in case chunks are on a separate
@@ -806,7 +790,6 @@ class DataLoader(object):
 
             self._loadChunkIndex(wmgr, database, table, chunk, metaTable, idxCol)
 
-
     def _makeIndexSingleNode(self, database, table, metaTable, idxCol):
         """
         Generate object index in czar meta database in case all chunks are also on czar.
@@ -818,7 +801,6 @@ class DataLoader(object):
         for chunk in self.chunks:
 
             self._loadChunkIndex(self.czarWmgr, database, table, chunk, metaTable, idxCol)
-
 
     def _loadChunkIndex(self, wmgr, database, table, chunk, metaTable, idxCol):
         """

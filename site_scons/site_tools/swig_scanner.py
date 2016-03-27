@@ -22,6 +22,7 @@ import re
 import SCons.Scanner
 from SCons.Tool import swig
 
+
 class SwigScanner(SCons.Scanner.ClassicCPP):
     '''
     Special scanner which is a combination of SWIG and C++ scanners
@@ -45,6 +46,7 @@ class SwigScanner(SCons.Scanner.ClassicCPP):
 # use one global scanner instance
 _scanner = SwigScanner()
 
+
 def generate(env):
     # make sure that swig tool is there and then fix scanners
 
@@ -63,6 +65,7 @@ def generate(env):
     # replace SWIG scanners
     scanners = [_repl(scanner) for scanner in env['SCANNERS']]
     env.Replace(SCANNERS = scanners)
+
 
 def exists(env):
     # just forward to actual swig tool

@@ -44,6 +44,7 @@ from werkzeug.exceptions import HTTPException
 # Exported definitions --
 #------------------------
 
+
 def errorResponse(code, errorType, message, cause=None):
     """
     Make JSON error response, structure follows our guidelines document.
@@ -54,6 +55,7 @@ def errorResponse(code, errorType, message, cause=None):
     response = json.jsonify(excData)
     response.status_code = code
     return response
+
 
 class ExceptionResponse(HTTPException):
     """

@@ -19,6 +19,7 @@ from flask import request, make_response, session
 
 
 class HTTPAuth(object):
+
     def __init__(self):
         def default_get_password(username):
             return None
@@ -72,6 +73,7 @@ class HTTPAuth(object):
 
 
 class HTTPBasicAuth(HTTPAuth):
+
     def __init__(self):
         super(HTTPBasicAuth, self).__init__()
         self.hash_password(None)
@@ -109,6 +111,7 @@ class HTTPBasicAuth(HTTPAuth):
 
 
 class HTTPDigestAuth(HTTPAuth):
+
     def __init__(self):
         super(HTTPDigestAuth, self).__init__()
         self.random = SystemRandom()

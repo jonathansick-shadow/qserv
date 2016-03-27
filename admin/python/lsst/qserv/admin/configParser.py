@@ -44,6 +44,7 @@ Most of the code is stolen from partitioner C++ code and adopted for Python.
 # Exported definitions --
 #------------------------
 
+
 class ConfigParser(object):
     """
     Instances of ConfigParser class are used to parse configuration from
@@ -239,6 +240,6 @@ class ConfigParser(object):
 
         if keys or lvl != 0 or len(groups) != 1:
             raise ValueError("Missing value for key, "
-                                "or unmatched (, [ or {.")
+                             "or unmatched (, [ or {.")
 
         return parsed

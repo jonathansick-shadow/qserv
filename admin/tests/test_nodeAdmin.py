@@ -52,7 +52,6 @@ def _makeCss(data=None):
 
 class TestWorkerAdmin(unittest.TestCase):
 
-
     def test_WorkerAdminExceptions(self):
         """ Check that some instantiations of NodeAdmin cause exceptions """
 

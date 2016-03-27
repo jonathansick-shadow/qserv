@@ -48,7 +48,7 @@ from .nodeAdmin import NodeAdmin
 
 _Exception = produceExceptionClass('WorkerMgmtException', [
     (100, "TABLE_SCHEMA_ERR", "Invalid table schema specification"),
-    ])
+])
 
 #------------------------
 # Exported definitions --
@@ -57,6 +57,7 @@ _Exception = produceExceptionClass('WorkerMgmtException', [
 #---------------------
 #  Class definition --
 #---------------------
+
 
 class NodeMgmt(object):
     """
@@ -114,7 +115,6 @@ class NodeMgmt(object):
         return [NodeAdmin(name=key, css=self.css, wmgrSecretFile=self.wmgrSecretFile)
                 for key, _ in nodes.items()]
 
-
     def selectDict(self, state=None, nodeType=None):
         """
         Returns set of nodes based on supplied selection criteria. Nodes are returned
@@ -141,7 +141,6 @@ class NodeMgmt(object):
 
         # make dict
         return dict(nodes)
-
 
     def createDb(self, dbName, state=None, nodeType=None):
         """
@@ -186,7 +185,6 @@ class NodeMgmt(object):
 
         self._log.debug('Created databases on %d nodes out of %d', nCreated, len(nodes))
         return len(nodes), nCreated
-
 
     def createTable(self, dbName, tableName, state=None, nodeType=None):
         """

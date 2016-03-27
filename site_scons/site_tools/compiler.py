@@ -18,6 +18,7 @@ import sys
 import SCons
 import state   # this should not be here
 
+
 def _guess_cxx(context):
     """
     Guess compiler type and version. Returns pair of strings:
@@ -30,8 +31,8 @@ def _guess_cxx(context):
     # have a single capture group for the version detection.
     version_strings = (
         (r"g(?:\+\+|cc)+(?:-[0-9.]+| )+\(.+\) +([0-9.a-zA-Z]+)", "gcc"),
-        (r"LLVM +version +([0-9.a-zA-Z]+) ", "clang"), # clang on Mac
-        (r"clang +version +([^ ]+) ", "clang"), # clang on linux
+        (r"LLVM +version +([0-9.a-zA-Z]+) ", "clang"),  # clang on Mac
+        (r"clang +version +([^ ]+) ", "clang"),  # clang on linux
         (r"\(ICC\) +([0-9.a-zA-Z]+) ", "icc"),
     )
 
@@ -118,7 +119,8 @@ def generate(env):
         # needs special flag to workaround inconsistent typedefs.
         # This currently only applies to Linux, looks like clang/OSX
         # works as expected
-        env['SWIGCOM'] = '$SWIG -DSWIGWORDSIZE64 -o $TARGET ${_SWIGOUTDIR} ${_SWIGINCFLAGS} $SWIGFLAGS $SOURCES'
+        env[
+            'SWIGCOM'] = '$SWIG -DSWIGWORDSIZE64 -o $TARGET ${_SWIGOUTDIR} ${_SWIGINCFLAGS} $SWIGFLAGS $SOURCES'
 
     else:
 
@@ -130,6 +132,7 @@ def generate(env):
         env.Append(CCFLAGS=['-g'])
 
     env.Append(CPPFLAGS=["-D_FILE_OFFSET_BITS=64"])
+
 
 def exists(env):
     # just forward to actual swig tool

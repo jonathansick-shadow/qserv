@@ -58,6 +58,7 @@ UP = 0
 
 config = dict()
 
+
 def read_user_config():
     config_file = os.path.join(os.getenv("HOME"), ".lsst", "qserv.conf")
     _LOG.debug("Read user config file: %r", config_file)
@@ -112,6 +113,7 @@ def read_config(config_file):
 def getConfig():
     return config
 
+
 def restart(service_name):
     config = getConfig()
     if len(config) == 0:
@@ -120,6 +122,7 @@ def restart(service_name):
     daemon_script = os.path.join(initd_path, service_name)
     out = os.system("%s stop" % daemon_script)
     out = os.system("%s start" % daemon_script)
+
 
 def status(qserv_run_dir):
     """
@@ -137,6 +140,7 @@ def status(qserv_run_dir):
     with open(os.devnull, "w") as fnull:
         retcode = subprocess.call([script_path], stdout=fnull, stderr=fnull, shell=False)
     return retcode
+
 
 def run_command(cmd_args, stdin_file=None, stdout=None, stderr=None,
                 loglevel=logging.INFO):
@@ -160,8 +164,8 @@ def run_command(cmd_args, stdin_file=None, stdout=None, stderr=None,
         sin = open(stdin_file, "r")
 
     sout = None
-    if stdout==sys.stdout:
-        sout=sys.stdout
+    if stdout == sys.stdout:
+        sout = sys.stdout
     elif stdout:
         _LOG.log(loglevel, "stdout file: %r" % stdout)
         sout = open(stdout, "w")
@@ -169,8 +173,8 @@ def run_command(cmd_args, stdin_file=None, stdout=None, stderr=None,
         sout = subprocess.PIPE
 
     serr = None
-    if stderr==sys.stderr:
-        serr=sys.stderr
+    if stderr == sys.stderr:
+        serr = sys.stderr
     elif stderr:
         _LOG.log(loglevel, "stderr file: %r" % stderr)
         serr = open(stderr, "w")

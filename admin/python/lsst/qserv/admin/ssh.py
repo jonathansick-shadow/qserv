@@ -46,6 +46,7 @@ _LOG = logging.getLogger(__name__)
 # Exported definitions --
 #------------------------
 
+
 class SSHCommand(object):
     """
     Class implementing execution of the command on remote host.

@@ -37,6 +37,7 @@ from lsst.qserv.admin.ssh import SSHCommand
 logging.basicConfig(level=logging.INFO)
 _LOG = logging.getLogger('TEST')
 
+
 class TestNodePool(unittest.TestCase):
 
     @classmethod
@@ -54,18 +55,15 @@ class TestNodePool(unittest.TestCase):
         failed = self._nodePool.execParallel('echo ECHO')
         self.assertEquals(failed, 0)
 
-
     def test_ExecParallel_Stdin(self):
         """ Check parallel execution of command from stdin """
         failed = self._nodePool.execParallel('echo ECHO')
         self.assertEquals(failed, 0)
 
-
     def test_ExecParallel_Fail(self):
         """ Check parallel execution of command, with failure """
         failed = self._nodePool.execParallel('false')
         self.assertEquals(failed, self._nb_nodes)
-
 
 
 ####################################################################################
